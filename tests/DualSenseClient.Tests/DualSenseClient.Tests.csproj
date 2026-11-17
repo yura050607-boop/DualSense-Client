@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="coverlet.collector" Version="10.0.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
+        <PackageReference Include="NUnit" Version="4.6.1" />
+        <PackageReference Include="NUnit.Analyzers" Version="4.14.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="NUnit3TestAdapter" Version="6.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="NUnit.Framework"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\source\DualSenseClient.Core\DualSenseClient.Core.csproj"/>
+        <ProjectReference Include="..\..\source\DualSenseClient.Hid\DualSenseClient.Hid.csproj" />
+        <ProjectReference Include="..\..\source\DualSenseClient.Logging\DualSenseClient.Logging.csproj"/>
+        <ProjectReference Include="..\..\source\DualSenseClient.Settings\DualSenseClient.Settings.csproj"/>
+        <ProjectReference Include="..\..\source\DualSenseClient.Controllers\DualSenseClient.Controllers.csproj" />
+        <ProjectReference Include="..\..\source\DualSenseClient.GUI\DualSenseClient.GUI.csproj" />
+        <ProjectReference Include="..\..\source\DualSenseClient.Bluetooth\DualSenseClient.Bluetooth.csproj" />
+    </ItemGroup>
+
+</Project>

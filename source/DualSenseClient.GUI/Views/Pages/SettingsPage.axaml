@@ -1,0 +1,158 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DualSenseClient.GUI.ViewModels.Pages"
+             xmlns:cards="clr-namespace:DualSenseClient.GUI.Controls.Cards"
+             xmlns:fic="using:FluentIcons.Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="DualSenseClient.GUI.Views.Pages.SettingsPage"
+             x:DataType="vm:SettingsPageViewModel">
+    <Design.DataContext>
+        <vm:SettingsPageViewModel />
+    </Design.DataContext>
+    <ScrollViewer>
+        <StackPanel Spacing="16"
+                    Margin="24">
+            <!-- App Header -->
+            <TextBlock Text="{DynamicResource MainWindow.Settings}"
+                       FontSize="24"
+                       FontWeight="SemiBold"
+                       Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+            <StackPanel Orientation="Horizontal"
+                        Spacing="15"
+                        Margin="0,0,0,10">
+                <Border Width="80"
+                        Height="80"
+                        Padding="6"
+                        CornerRadius="8"
+                        Background="{DynamicResource SystemAccentColor}"
+                        BorderBrush="{DynamicResource SystemAccentColor}"
+                        BorderThickness="1"
+                        VerticalAlignment="Center">
+                    <Image Source="/Assets/icon-transparent.png" />
+                </Border>
+                <StackPanel Orientation="Vertical"
+                            Spacing="5"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{DynamicResource SettingsPage.Header.AppName}"
+                               FontSize="24"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    <TextBlock Text="{Binding ApplicationVersion, Mode=OneTime}"
+                               FontSize="14"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               Margin="1,0,0,0" />
+                    <StackPanel Orientation="Horizontal">
+                        <HyperlinkButton NavigateUri="https://github.com/DualSenseClient/DualSenseClient"
+                                         Content="{DynamicResource SettingsPage.Header.Github}"
+                                         FontSize="12"
+                                         Margin="-10,0,0,0" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- UI Settings -->
+            <Expander>
+                <Expander.Header>
+                    <cards:CardHeader Title="{DynamicResource SettingsPage.Ui.Title}"
+                                      Description="{DynamicResource SettingsPage.Ui.Description}"
+                                      Icon="{x:Static fic:Symbol.PaintBrush}"
+                                      MinHeight="64" />
+                </Expander.Header>
+                <StackPanel Spacing="8">
+                    <!-- Language -->
+                    <cards:ComboBoxCard Icon="{x:Static fic:Symbol.LocalLanguageGlobe}"
+                                        Title="{DynamicResource SettingsPage.Ui.Language.Title}"
+                                        Description="{DynamicResource SettingsPage.Ui.Language.Description}"
+                                        ItemsSource="{Binding AppLanguages}"
+                                        SelectedIndex="{Binding SelectedLanguageIndex}" />
+                    <!-- Theme -->
+                    <cards:ComboBoxCard Icon="{x:Static fic:Symbol.CircleHalfFill}"
+                                        Title="{DynamicResource SettingsPage.Ui.Theme.Title}"
+                                        Description="{DynamicResource SettingsPage.Ui.Theme.Description}"
+                                        ItemsSource="{Binding AppThemeOptions}"
+                                        SelectedIndex="{Binding SelectedThemeIndex}" />
+                </StackPanel>
+            </Expander>
+            <!-- Window Settings -->
+            <Expander>
+                <Expander.Header>
+                    <cards:CardHeader Title="{DynamicResource SettingsPage.Window.Title}"
+                                      Description="{DynamicResource SettingsPage.Window.Description}"
+                                      Icon="{x:Static fic:Symbol.Window}"
+                                      MinHeight="64" />
+                </Expander.Header>
+                <StackPanel Spacing="8">
+                    <!-- Close to Tray -->
+                    <cards:ToggleSwitchCard Icon="{x:Static fic:Symbol.ShareCloseTray}"
+                                            Title="{DynamicResource SettingsPage.Window.CloseToTray.Title}"
+                                            Description="{DynamicResource SettingsPage.Window.CloseToTray.Description}"
+                                            IsChecked="{Binding CloseToTray}" />
+                    <!-- Start in Tray -->
+                    <cards:ToggleSwitchCard Icon="{x:Static fic:Symbol.ArrowMinimize}"
+                                            Title="{DynamicResource SettingsPage.Window.StartInTray.Title}"
+                                            Description="{DynamicResource SettingsPage.Window.StartInTray.Description}"
+                                            IsChecked="{Binding StartInTray}" />
+                    <!-- Show Battery Percentage -->
+                    <cards:ToggleSwitchCard Icon="{x:Static fic:Symbol.Battery9}"
+                                            Title="{DynamicResource SettingsPage.Window.BatteryPercentage.Title}"
+                                            Description="{DynamicResource SettingsPage.Window.BatteryPercentage.Description}"
+                                            IsChecked="{Binding ShowBatteryPercentage}" />
+                </StackPanel>
+            </Expander>
+            <!-- Debug Settings -->
+            <Expander>
+                <Expander.Header>
+                    <cards:CardHeader Title="{DynamicResource SettingsPage.Debug.Title}"
+                                      Description="{DynamicResource SettingsPage.Debug.Description}"
+                                      Icon="{x:Static fic:Symbol.Bug}"
+                                      MinHeight="64" />
+                </Expander.Header>
+                <StackPanel Spacing="8">
+                    <!-- Log Level -->
+                    <cards:ComboBoxCard Icon="{x:Static fic:Symbol.List}"
+                                        Title="{DynamicResource SettingsPage.Debug.LogLevel.Title}"
+                                        Description="{DynamicResource SettingsPage.Debug.LogLevel.Description}"
+                                        ItemsSource="{Binding LogLevels}"
+                                        SelectedIndex="{Binding SelectedLogLevelIndex}" />
+                    <StackPanel Spacing="8"
+                                Margin="8,8,8,4">
+                        <TextBlock Text="Audio and input timing diagnostics"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                        <TextBlock Text="Optional process-wide audio timing and input progress counts, combined across controllers. Physical counts come only from the scanner's current accepted DualSense sources; this is app-level qualification, not absolute hardware provenance. This does not record sound, voice, input values, raw reports, or device identity. A virtual submit success means libVIIPER accepted the state; it does not confirm that a game consumed it. Start or stop it without restarting the app or reconnecting the controller. The duration is used for this capture only and is not saved."
+                                   TextWrapping="Wrap"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="8"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="Duration (minutes)"
+                                       VerticalAlignment="Center" />
+                            <ComboBox Width="100"
+                                      ItemsSource="{Binding AudioDiagnostics.DurationOptions}"
+                                      SelectedItem="{Binding AudioDiagnostics.SelectedDurationMinutes}"
+                                      IsEnabled="{Binding AudioDiagnostics.IsDurationSelectionEnabled}" />
+                            <Button Content="Start diagnostics"
+                                    Command="{Binding AudioDiagnostics.StartCaptureCommand}" />
+                            <Button Content="Stop"
+                                    Command="{Binding AudioDiagnostics.StopCaptureCommand}" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding AudioDiagnostics.StateText}"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                        <TextBlock Text="{Binding AudioDiagnostics.LogPathText}"
+                                   TextWrapping="Wrap"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="{Binding AudioDiagnostics.ErrorMessage}"
+                                   TextWrapping="Wrap"
+                                   Foreground="{DynamicResource SystemFillColorCriticalBrush}" />
+                    </StackPanel>
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
